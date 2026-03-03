@@ -96,7 +96,6 @@ const hoodiesInventory = [{
 
 const cart = [];
 let data = ``;
-let cartPro = ``;
 
 function renderProdcts(cardData) {
     cardData.forEach((elem, idx) => {
@@ -161,9 +160,22 @@ function renderProdcts(cardData) {
 }
 renderProdcts(hoodiesInventory);
 
-function cartProducts(cartData) {
-  cartData.forEach((elem, idx) => {
-    cartPro += ` <div id='${elem.id}' class="card">
+let card_container = document.querySelector(".card-container");
+card_container.innerHTML = data;
+
+card_container.addEventListener("click", (event) => {
+  if (event.target.classList.contains("cart-btn")) {
+    let id = event.target.id;
+
+    cart.push(hoodiesInventory[id]);
+  }
+  update();
+});
+
+function update() {
+  let cartUI = ``;
+  cart.forEach((elem, idx) => {
+    cartUI += ` <div id='${elem.id}' class="card">
     <span class="stock">x${elem.stock}</span>
             <div class="card-content">
               <figure class="card-img-wrapper">
@@ -213,22 +225,40 @@ function cartProducts(cartData) {
                 </p>
               </div>
               <div class="card-btn-container">
-                <button id='${idx}' class="buy-btn btn">Delete cart</button>
+                <button id='${idx}' class="delete-btn buy-btn btn">Delete cart</button>
               </div>
             </div>
           </div>`;
   });
-  return cartPro;
+  let cart_container = document.querySelector(".cart-wrapper .cart-container");
+  cart_container.innerHTML = cartUI;
 }
 
-let cart_container = document.querySelector(".cart-wrapper");
-cart_container.innerHTML = cartProducts(cart);
-let card_container = document.querySelector(".card-container");
-card_container.innerHTML = data;
-card_container.addEventListener("click", (event) => {
-  if (event.target.classList.contains("cart-btn")) {
-    let id = event.target.id;
-    cart.push(hoodiesInventory[id]);
+let cartBtn = document.querySelector(".nav-wrapper .cart-btn");
+
+let cartScreen = document.querySelector(".cart-container");
+
+cartBtn.addEventListener("click", () => {
+  if (cart.length == 0) {
+    alert("Your cart is empty");
   }
-  cart_container.innerHTML = cartProducts(cart);
+  
+  if (cartScreen.style.display == "none" && cart.length !== 0) {
+    cartScreen.style.display = "grid";
+  } else {
+    cartScreen.style.display = "none";
+  }
+  update();
 });
+cartScreen.addEventListener("click", (event) => {
+  if (event.target.classList.contains("delete-btn")) {
+    let id = event.target.id;
+    cart.splice(id, 1);
+  }
+  if (cart.length == 0) {
+    cartScreen.style.display = "none";
+    alert("You deleted all the items from cart Your cart is empty");
+  }
+  update();
+});
+update();
