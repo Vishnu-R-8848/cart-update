@@ -365,7 +365,7 @@ select {
 
 .card {
     position: relative;
-    height: 800px;
+    height: 850px;
     width: 400px;
     gap: var(--space-lg);
     border: 2px solid var(--color-gray-300);
