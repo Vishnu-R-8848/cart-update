@@ -224,7 +224,7 @@ select {
 
 .card-content {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
 }
 
 .header-wrapper {
@@ -365,7 +365,7 @@ select {
 
 .card {
     position: relative;
-    height: fit-content;
+    height: 800px;
     width: 400px;
     gap: var(--space-lg);
     border: 2px solid var(--color-gray-300);
@@ -504,4 +504,19 @@ select {
 
 i {
     pointer-events: none;
+}
+
+.cart-container {
+    padding: var(--space-xl);
+    background: var(--color-gray-100);
+    position: absolute;
+    top: 10%;
+    gap: var(--grid-gutter);
+    display: none;
+    box-shadow: inset 5px 5px 10px var(--color-gray-500), inset -5px -5px 10px var(--color-gray-500), 5px 5px 5px var(--color-gray-950);
+    border-radius: var(--radius-xl);
+    -webkit-border-radius: var(--radius-xl);
+    -moz-border-radius: var(--radius-xl);
+    -ms-border-radius: var(--radius-xl);
+    -o-border-radius: var(--radius-xl);
 }
